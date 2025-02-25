@@ -49,6 +49,7 @@ void ExibirOpcoesDoMenu()
             break;
         case 4: 
             Console.WriteLine("\nVocê digitou a opção " + opcaoEscolhida);
+            ExibirMedia();
             break;
         case 0:
             Console.WriteLine("\nVocê digitou a opção " + opcaoEscolhida); // melhorar mensagem de saída
@@ -95,9 +96,6 @@ void AvaliarBanda()
 {
     Console.Clear();
     ExibirTitulo("# Avaliar bandas registradas #");
-    // digite qual banda deseja avaliar
-    // se a banda existir no dicionário >> atribuir nota
-    // senão, volta ao menu principal
     Console.Write("Digite o nome da banda que deseja avaliar: ");
     string nomeDaBanda = Console.ReadLine()!;
     if (bandasRegistradas.ContainsKey(nomeDaBanda))
@@ -118,17 +116,41 @@ void AvaliarBanda()
             Thread.Sleep(2000);
             bandasRegistradas.Add(nomeDaBanda, new List<int>());
             Console.WriteLine($"\nA banda {nomeDaBanda} foi registrada com sucesso!");
-            Thread.Sleep(2000);
+            Thread.Sleep(4000);
             Console.Clear();
             AvaliarBanda();
         } else {
             Thread.Sleep(2000);
             Console.WriteLine("Digite qualquer tecla para voltar ao menu principal");
             Console.ReadKey();
-            Thread.Sleep(2000);
             Console.Clear();
             ExibirOpcoesDoMenu();
         }
+    }
+}
+
+void ExibirMedia()
+{
+    Console.Clear();
+    ExibirTitulo("# Exibindo média da banda #");
+    Console.Write("\nDigite o nome da banda que deseja exibir a média: ");
+    string nomeDaBanda = Console.ReadLine()!;
+    if (bandasRegistradas.ContainsKey(nomeDaBanda)) 
+    {
+        List<int> notasDaBanda = bandasRegistradas[nomeDaBanda];
+        Console.WriteLine($"\nA média da banda {nomeDaBanda} é {notasDaBanda.Average()}.");
+        Console.WriteLine("Digite qualquer tecla para voltar ao menu principal");
+        Console.ReadKey();
+        Console.Clear();
+        ExibirOpcoesDoMenu();
+    
+    } else {
+        Console.WriteLine($"A banda {nomeDaBanda} não foi encontrada!");
+        Thread.Sleep(2000);
+        Console.WriteLine("Digite qualquer tecla para voltar ao menu principal");
+        Console.ReadKey();
+        Console.Clear();
+        ExibirOpcoesDoMenu();
     }
 }
 
