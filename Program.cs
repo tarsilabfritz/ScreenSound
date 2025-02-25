@@ -1,14 +1,14 @@
-﻿// Screen Sound - Sistema para registrar, avaliar e exibir bandas
+﻿// Screen Sound - Sistema interativo para registrar, avaliar e exibir bandas cadastradas
 
-// Mensagem de boas-vindas
+// Mensagem exibida ao iniciar o programa
 string mensagemDeBoasVindas = "Boas vindas ao Screen Sound";
 
-// Dicionário para armazenar as bandas e suas respectivas avaliações
+// Estrutura de dados que armazena o nome da banda como chave e uma lista de notas como valor
 Dictionary<string, List<int>> bandasRegistradas = new Dictionary<string, List<int>>();
 bandasRegistradas.Add("Imagine Dragons", new List<int> {10, 8, 6});
 bandasRegistradas.Add("The Beatles", new List<int>());
 
-// Função para exibir o logotipo do sistema
+// Função que imprime o logotipo e a mensagem de boas-vindas na tela
 void ExibirLogo() 
 {
     Console.WriteLine(@"
@@ -22,7 +22,6 @@ void ExibirLogo()
     Console.WriteLine(mensagemDeBoasVindas);
 };
 
-
 // Função para exibir o menu principal
 void ExibirOpcoesDoMenu()
 {
@@ -35,7 +34,7 @@ void ExibirOpcoesDoMenu()
 
     Console.Write("Digite a sua opção: ");
     string opcaoEscolhida = Console.ReadLine()!;
-    // Validação da entrada do usuário
+    // Garante que o usuário insira um número válido antes de processar a opção
     if (int.TryParse(opcaoEscolhida, out int opcaoEscolhidaNumerica))
     {
         switch (opcaoEscolhidaNumerica)
@@ -72,12 +71,21 @@ void RegistrarBanda() {
     Console.Clear();
     ExibirTitulo("# Registrar nova banda #");
     Console.Write("Digite o nome da banda que deseja registrar: ");
-    string nomeDaBanda = Console.ReadLine()!;
-    bandasRegistradas.Add(nomeDaBanda, new List<int>());
-    Console.WriteLine($"A banda {nomeDaBanda} foi registrada!");
-    Thread.Sleep(2000);
-    Console.Clear();
-    ExibirOpcoesDoMenu();
+    string nomeDaBanda = Console.ReadLine()!.Trim();
+    // Verifica se a banda já está registrada antes de adicioná-la
+    if (!bandasRegistradas.ContainsKey(nomeDaBanda)) 
+    {
+        bandasRegistradas.Add(nomeDaBanda, new List<int>());
+        Console.WriteLine($"A banda {nomeDaBanda} foi registrada com sucesso!");
+        Thread.Sleep(2000);
+        Console.Clear();
+        ExibirOpcoesDoMenu();
+    } else {
+        Console.WriteLine($"A banda {nomeDaBanda} já está registrada.");
+        Thread.Sleep(2000);
+        Console.Clear();
+        ExibirOpcoesDoMenu();
+    }
 }
 
 // Função para mostrar as bandas registradas
@@ -91,7 +99,7 @@ void MostrarBandasRegistradas()
             Console.WriteLine($"Banda: {banda}");
         }
     } else {
-        Console.WriteLine("Não encontramos nenhuma banda registrada");
+        Console.WriteLine("Ainda não há bandas registradas. Use a opção 1 para adicionar.");
     }
 
     Console.WriteLine("\nDigite qualquer tecla para voltar ao menu principal\n");
@@ -106,13 +114,12 @@ void AvaliarBanda()
     Console.Clear();
     ExibirTitulo("# Avaliar bandas registradas #");
     Console.Write("Digite o nome da banda que deseja avaliar: ");
-    string nomeDaBanda = Console.ReadLine()!;
+    string nomeDaBanda = Console.ReadLine()!.Trim();
     if (bandasRegistradas.ContainsKey(nomeDaBanda))
     {
         Console.Write($"Qual nota a banda {nomeDaBanda} merece? ");
-        int notaDaBanda = int.Parse(Console.ReadLine()!);
-        // Validação da entrada do usuário
-        if (notaDaBanda >= 0) {
+        // Garante que o usuário insira um número válido antes de processar a opção
+        if (int.TryParse(Console.ReadLine(), out int notaDaBanda) && notaDaBanda >= 0) {
             bandasRegistradas[nomeDaBanda].Add(notaDaBanda);
             Console.WriteLine($"\nA nota {notaDaBanda} foi registrada com sucesso para a banda {nomeDaBanda}!");
             Thread.Sleep(2000);
@@ -129,10 +136,10 @@ void AvaliarBanda()
         Thread.Sleep(2000);
         Console.Write($"\nDeseja registrar a banda {nomeDaBanda} como parte do sistema? (S/N): ");
         string adicionarNovaBanda = Console.ReadLine()!;
-        if (adicionarNovaBanda == "S") {
+        if (adicionarNovaBanda.Trim().ToUpper() == "S") {
             Thread.Sleep(2000);
             bandasRegistradas.Add(nomeDaBanda, new List<int>());
-            Console.WriteLine($"\nA banda {nomeDaBanda} foi registrada com sucesso!");
+            Console.WriteLine($"A banda {nomeDaBanda} foi registrada com sucesso!");
             Thread.Sleep(4000);
             Console.Clear();
             AvaliarBanda();
@@ -151,7 +158,7 @@ void ExibirMedia()
 {
     Console.Clear();
     ExibirTitulo("# Exibindo média da banda #");
-    Console.Write("\nDigite o nome da banda que deseja exibir a média: ");
+    Console.Write("Digite o nome da banda que deseja exibir a média: ");
     string nomeDaBanda = Console.ReadLine()!;
     if (bandasRegistradas.ContainsKey(nomeDaBanda)) 
     {
@@ -172,7 +179,7 @@ void ExibirMedia()
     }
 }
 
-// Função auxiliar para exibir títulos formatados
+// Exibe um título formatado com a mesma quantidade de asteriscos que o texto possui
 void ExibirTitulo(string titulo)
 {
     int qtdLetras = titulo.Length;
