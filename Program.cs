@@ -1,12 +1,14 @@
-﻿// Screen Sound
-string mensagemDeBoasVindas = "Boas vindas ao Screen Sound";
-// List<string> listaDasBandas = new List<string>();
-// List<string> listaDasBandas = new List<string> { "Imagine Dragons", "The Beatles", "Adele", "bbno$" };
+﻿// Screen Sound - Sistema para registrar, avaliar e exibir bandas
 
+// Mensagem de boas-vindas
+string mensagemDeBoasVindas = "Boas vindas ao Screen Sound";
+
+// Dicionário para armazenar as bandas e suas respectivas avaliações
 Dictionary<string, List<int>> bandasRegistradas = new Dictionary<string, List<int>>();
 bandasRegistradas.Add("Imagine Dragons", new List<int> {10, 8, 6});
 bandasRegistradas.Add("The Beatles", new List<int>());
 
+// Função para exibir o logotipo do sistema
 void ExibirLogo() 
 {
     Console.WriteLine(@"
@@ -20,6 +22,8 @@ void ExibirLogo()
     Console.WriteLine(mensagemDeBoasVindas);
 };
 
+
+// Função para exibir o menu principal
 void ExibirOpcoesDoMenu()
 {
     ExibirLogo();
@@ -52,7 +56,7 @@ void ExibirOpcoesDoMenu()
             ExibirMedia();
             break;
         case 0:
-            Console.WriteLine("\nVocê digitou a opção " + opcaoEscolhida); // melhorar mensagem de saída
+            Console.WriteLine("\nSaindo do programa... Obrigado por usar o Screen Sound!");
             break;
         default:
              Console.WriteLine("\nOpção inválida! Tente novamente");
@@ -60,12 +64,12 @@ void ExibirOpcoesDoMenu()
     }
 }
 
+// Função para registrar uma nova banda no sistema
 void RegistrarBanda() {
     Console.Clear();
     ExibirTitulo("# Registrar nova banda #");
     Console.Write("Digite o nome da banda que deseja registrar: ");
     string nomeDaBanda = Console.ReadLine()!;
-    // listaDasBandas.Add(nomeDaBanda);
     bandasRegistradas.Add(nomeDaBanda, new List<int>());
     Console.WriteLine($"A banda {nomeDaBanda} foi registrada!");
     Thread.Sleep(2000);
@@ -73,6 +77,7 @@ void RegistrarBanda() {
     ExibirOpcoesDoMenu();
 }
 
+// Função para mostrar as bandas registradas
 void MostrarBandasRegistradas()
 {
     Console.Clear();
@@ -92,6 +97,7 @@ void MostrarBandasRegistradas()
     ExibirOpcoesDoMenu();
 }
 
+// Função para avaliar uma banda
 void AvaliarBanda()
 {
     Console.Clear();
@@ -129,6 +135,7 @@ void AvaliarBanda()
     }
 }
 
+// Função para exibir média de avaliações de uma banda
 void ExibirMedia()
 {
     Console.Clear();
@@ -154,6 +161,7 @@ void ExibirMedia()
     }
 }
 
+// Função auxiliar para exibir títulos formatados
 void ExibirTitulo(string titulo)
 {
     int qtdLetras = titulo.Length;
@@ -163,5 +171,5 @@ void ExibirTitulo(string titulo)
     Console.WriteLine(asteriscos + "\n");
 }
 
-// ExibirMensagem();
+// Iniciar o programa
 ExibirOpcoesDoMenu();
