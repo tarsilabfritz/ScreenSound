@@ -78,13 +78,11 @@ void RegistrarBanda() {
         bandasRegistradas.Add(nomeDaBanda, new List<int>());
         Console.WriteLine($"A banda {nomeDaBanda} foi registrada com sucesso!");
         Thread.Sleep(2000);
-        Console.Clear();
-        ExibirOpcoesDoMenu();
+        VoltarMenuPrincipal();
     } else {
         Console.WriteLine($"A banda {nomeDaBanda} já está registrada.");
         Thread.Sleep(2000);
-        Console.Clear();
-        ExibirOpcoesDoMenu();
+        VoltarMenuPrincipal();
     }
 }
 
@@ -104,8 +102,7 @@ void MostrarBandasRegistradas()
 
     Console.WriteLine("\nDigite qualquer tecla para voltar ao menu principal\n");
     Console.ReadKey();
-    Console.Clear();
-    ExibirOpcoesDoMenu();
+    VoltarMenuPrincipal();
 }
 
 // Função para avaliar uma banda
@@ -119,14 +116,13 @@ void AvaliarBanda()
     {
         Console.Write($"Qual nota a banda {nomeDaBanda} merece? ");
         // Garante que o usuário insira um número válido antes de processar a opção
-        if (int.TryParse(Console.ReadLine(), out int notaDaBanda) && notaDaBanda >= 0) {
+        if (int.TryParse(Console.ReadLine(), out int notaDaBanda) && notaDaBanda >= 0 && notaDaBanda <= 10) {
             bandasRegistradas[nomeDaBanda].Add(notaDaBanda);
             Console.WriteLine($"\nA nota {notaDaBanda} foi registrada com sucesso para a banda {nomeDaBanda}!");
             Thread.Sleep(2000);
-            Console.Clear();
-            ExibirOpcoesDoMenu();
+            VoltarMenuPrincipal();
         } else {
-            Console.WriteLine("\nNúmero inválido! Tente novamente");
+            Console.WriteLine("\nNúmero inválido! A nota deve ser entre 0 e 10. Tente novamente.");
             Thread.Sleep(2000);
             Console.Clear();
             AvaliarBanda();
@@ -147,8 +143,7 @@ void AvaliarBanda()
             Thread.Sleep(2000);
             Console.WriteLine("Digite qualquer tecla para voltar ao menu principal");
             Console.ReadKey();
-            Console.Clear();
-            ExibirOpcoesDoMenu();
+            VoltarMenuPrincipal();
         }
     }
 }
@@ -166,16 +161,14 @@ void ExibirMedia()
         Console.WriteLine($"\nA média da banda {nomeDaBanda} é {notasDaBanda.Average():F2}.");
         Console.WriteLine("Digite qualquer tecla para voltar ao menu principal");
         Console.ReadKey();
-        Console.Clear();
-        ExibirOpcoesDoMenu();
+        VoltarMenuPrincipal();
     
     } else {
         Console.WriteLine($"A banda {nomeDaBanda} não foi encontrada!");
         Thread.Sleep(2000);
         Console.WriteLine("Digite qualquer tecla para voltar ao menu principal");
         Console.ReadKey();
-        Console.Clear();
-        ExibirOpcoesDoMenu();
+        VoltarMenuPrincipal();
     }
 }
 
@@ -187,6 +180,13 @@ void ExibirTitulo(string titulo)
     Console.WriteLine(asteriscos);
     Console.WriteLine(titulo);
     Console.WriteLine(asteriscos + "\n");
+}
+
+// 
+void VoltarMenuPrincipal()
+{
+    Console.Clear();
+    ExibirOpcoesDoMenu();
 }
 
 // Inicialização do programa
