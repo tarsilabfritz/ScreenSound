@@ -1,6 +1,6 @@
 # 🎶 Screen Sound - Sistema interativo para registrar, avaliar e exibir bandas cadastradas 🎵
 
-O **Screen Sound** é um sistema simples desenvolvido no C# para registrar, avaliar e exibir bandas com base nas avaliações dos usuários. O projeto foi criado para o curso **C#: Criando sua primeira aplicação** da plataforma **Alura**. Durante o desenvolvimento, diversas melhorias foram feitas, como validação de entradas de usuários, sistema para adicionar novas bandas caso não existam e verificação de bandas já registradas.
+O Screen Sound é um sistema interativo desenvolvido em C#, criado para facilitar o registro, a avaliação e a exibição de bandas cadastradas pelos usuários. O projeto foi desenvolvido como parte do curso "C#: Criando sua primeira aplicação" na plataforma Alura, com o objetivo de explorar conceitos de programação em C# e .NET.
 
 ## 🔧 Funcionalidades
 
